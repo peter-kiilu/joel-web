@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register and Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+        .toggle-link {
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="registerForm">
+    <h2>Register</h2>
+    <div class="input-group">
+        <label for="regUsername">Username:</label>
+        <input type="text" id="regUsername" required>
+    </div>
+    <div class="input-group">
+        <label for="regPassword">Password:</label>
+        <input type="password" id="regPassword" required>
+    </div>
+    <button class="button" onclick="register()">Register</button>
+    <a href="#" class="toggle-link" onclick="toggleForms()">Already have an account? Login</a>
+</div>
+
+<div class="container" id="loginForm" style="display:none;">
+    <h2>Login</h2>
+    <div class="input-group">
+        <label for="loginUsername">Username:</label>
+        <input type="text" id="loginUsername" required>
+    </div>
+    <div class="input-group">
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" required>
+    </div>
+    <button class="button" onclick="login()">Login</button>
+    <a href="#" class="toggle-link" onclick="toggleForms()">Don't have an account? Register</a>
+</div>
+
+<script>
+    const users = {};
+
+    function register() {
+        const username = document.getElementById('regUsername').value;
+        const password = document.getElementById('regPassword').value;
+
+        if (username && password) {
+            if (!users[username]) {
+                users[username] = password;
+                alert('Registration successful! You can now login.');
+                toggleForms();
+            } else {
+                alert('Username already taken. Please choose another one.');
+            }
+        } else {
+            alert('Please fill in both fields.');
+        }
+    }
+
+    function login() {
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+
+        if (users[username] && users[username] === password) {
+            alert('Login successful! Welcome, ' + username + '!');
+            // Redirect to homepage (index.html)
+            window.location.href = 'index.html';
+        } else {
+            alert('Incorrect username or password.');
+        }
+    }
+
+    function toggleForms() {
+        const registerForm = document.getElementById('registerForm');
+        const loginForm = document.getElementById('loginForm');
+        registerForm.style.display = registerForm.style.display === 'none' ? 'block' : 'none';
+        loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
+    }
+</script>
+
+</body>
+</html>
